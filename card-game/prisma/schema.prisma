@@ -22,5 +22,6 @@ model Card {
 
 model Deck {
   id            String  @id @default(cuid())
+  title         String @unique
   cards      Card[]  
 }
