@@ -12,7 +12,7 @@ datasource db {
 
 model Card {
   id            String  @id @default(cuid())
-  suit          String
+  suit          Int
   description   String
   title         String
   number        Int

@@ -6,7 +6,7 @@ export default async function handle(req, res) {
   
   switch (method) {
     case "POST":
-        if (!body.code.equals(code)) {
+        if (body.code !== code) {
             res.status(401).json({ error: "You are not authenticated" });
         } else {
             try {
