@@ -1,0 +1,30 @@
+
+.deck {
+  display: flex;
+  min-width: 13.75rem;
+  max-width: 20.625rem;
+  padding: 1.5rem 1.375rem;
+  align-items: flex-start;
+  gap: 0.625rem;
+  align-self: stretch;
+  
+  border-radius: 0.75rem;
+  background-color: var(--tertiary);
+
+  border: var(--border-unselected)
+}
+
+.deck:hover {
+    border: var(--border-selected);
+    cursor: pointer;
+}
+
+.deck.selected {
+  border: var(--border-selected);
+}
+
+.deck .cardcount {
+  flex: 1 0 0;
+  color: var(--quaternary);
+  text-align: right;
+}
