@@ -9,6 +9,7 @@
   --background: #f4f3ee;
 
   --border-selected: 2px solid var(--primary);
+  --border-hover: 2px solid var(--quaternary);
   --border-unselected: 2px solid transparent;
 
   --title-font-size: 4rem;

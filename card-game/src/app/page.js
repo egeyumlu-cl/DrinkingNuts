@@ -1,28 +1,37 @@
+'use client'
+
 import Image from 'next/image'
 import styles from './styles.module.css'
-import Deck from './components/components.js'
+import { Button, Deck } from './components/components.js'
+import React, { useState } from 'react';
+import axios from 'axios';
 
 export default function Home() {
-  // TODO: Add props for the available decks
+  let decks = [
+    {id: 0, text: "Original Deck", cardcount: 52}, {id: 1, text: "Deck 2", cardcount: 32}, {id: 2, text: "Deck 3", cardcount: 42},
+  ]
+  // let decks = axios.get('/api/deck/all').then(res => res.data); 
+  // Add select state to each deck,
+  decks = decks.map((deck, index) => {
+    let [isSelected, setIsSelected] = useState(index === 0);
+    return {...deck, isSelected, setIsSelected}
+  })
+
+  // Create a state for enabling the button, if at least one deck is selected 
+  let isEnabled = decks.reduce((acc, deck) => acc || deck.isSelected, false);
+
   return (
     <main className={styles.frame}>
       <div className={styles.container}>
         <h1 className={styles.title}>Highway <br/>to <span className={styles['title-red']}>Hell</span></h1>
-        <Button text="Start Game"/>
+        <Button text="Start Game" isEnabled={isEnabled} />
       </div>
       <List 
         label={<p className={styles.label}>Choose Decks</p>} 
-        items={[{text: "Deck 1", cardcount: 52, isSelected: true}, {text: "Deck 2", isSelected: false}, {text: "Deck 3", isSelected: false}]}
+        items={decks}
       />
     </main>
   );
-}
-
-export function Button(props) {
-  // props contains button text
-  return (
-      <button className={styles.button}>{props.text}</button>
-  )
 }
 
 export function List(props) {
@@ -30,10 +39,13 @@ export function List(props) {
   return (
     <div className={styles.list}>
       {props.label}
-      {props.items.map(item => <Deck text={item.text} cardcount={item.cardcount} isSelected={item.isSelected}/>)}
+      {props.items.map(({ id, ...deck }) => (
+        <Deck key={id} {...deck} />
+      ))}
     </div>
-  )
+  );
 }
+
 
 // export default function Home() {
 //   return (

@@ -3,8 +3,10 @@
 import styles from './components.module.css';
 import React, { useState } from 'react';
 
-export default function Deck(props) {
-  let [isSelected, setIsSelected] = useState(props.isSelected);
+export function Deck(props) {
+
+  let isSelected = props.isSelected;
+  let setIsSelected = props.setIsSelected;
 
   return (
     <div 
@@ -17,6 +19,14 @@ export default function Deck(props) {
   );
 }
 
+export function Button(props) {
+  // props contains button text
+  return (
+    <button className={styles.button + " " + (props.isEnabled ? styles.enabled : styles.disabled)}>
+      {props.isEnabled ? props.text : "Select Deck"}
+    </button>
+  )
+}
 
 
 // // Create a card component that takes in a card object and renders it

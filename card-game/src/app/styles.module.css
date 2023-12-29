@@ -22,25 +22,6 @@
   position: relative;
 }
 
-.button {
-  display: flex;
-  padding: 0.625rem 1.875rem;
-  align-items: flex-start;
-  gap: 0.5rem;
-
-  border-radius: 0.75rem;
-
-  color: var(--background);
-  background-color: var(--secondary);
-  border: var(--border-unselected);
-}
-
-.button:hover {
-  border: var(--border-selected);
-  color: var(--primary);
-  cursor: pointer;
-}
-
 .list {
   display: flex;
   flex-direction: column;

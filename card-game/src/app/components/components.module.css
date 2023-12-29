@@ -15,7 +15,7 @@
 }
 
 .deck:hover {
-    border: var(--border-selected);
+    border: var(--border-hover);
     cursor: pointer;
 }
 
@@ -27,4 +27,37 @@
   flex: 1 0 0;
   color: var(--quaternary);
   text-align: right;
+}
+
+.button {
+  display: flex;
+  padding: 0.625rem 1.875rem;
+  align-items: flex-start;
+  gap: 0.5rem;
+
+  border-radius: 0.75rem;
+}
+
+.button.enabled {
+  color: var(--background);
+  background-color: var(--secondary);
+  border: var(--border-unselected);
+  font-weight: 600;
+}
+
+.button.enabled:hover {
+  border: var(--border-hover);
+  color: var(--primary);
+  cursor: pointer;
+}
+
+.button.enabled:focus {
+  border: var(--border-selected);
+}
+
+.button.disabled { 
+  color: var(--quaternary);
+  background-color: var(--tertiary);
+  border: var(--border-unselected);
+  cursor: not-allowed;
 }
