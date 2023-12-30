@@ -15,7 +15,7 @@ export default function Home() {
       // If not, add it to the array
       setSelectedDeck([...selectedDeck, deckId]);
     }
-
+    console.log('ege')
   };
 
   const deleteDeck = (deckId) => {
