@@ -1,10 +1,9 @@
 'use client'
 
-import Image from 'next/image'
 import styles from './styles.module.css'
 import { Button, Deck } from './components/components.js'
 import React, { useState } from 'react';
-import axios from 'axios';
+import { useRouter } from 'next/navigation';
 
 export default function Home() {
   const [selectedDeck, setSelectedDeck] = useState([]);
@@ -36,12 +35,13 @@ export default function Home() {
 
   // Create a state for enabling the button, if at least one deck is selected 
   let isEnabled = selectedDeck.length > 0;
+  const router = useRouter();
 
   return (
     <main className={styles.frame}>
       <div className={styles.container}>
         <h1 className={styles.title}>Highway <br/>to <span className={styles['title-red']}>Hell</span></h1>
-        <Button text="Start Game" isEnabled={isEnabled} />
+        <Button text="Start Game" isEnabled={isEnabled} onClick={() => router.push('/game')}/>
       </div>
       <List 
         label={<p className={styles.label}>Choose Decks</p>} 

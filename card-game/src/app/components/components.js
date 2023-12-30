@@ -34,8 +34,10 @@ export function Deck(props) {
 export function Button(props) {
   // props contains button text
   return (
-    <button className={styles.button + " " + (props.isEnabled ? styles.enabled : styles.disabled)}>
-      {props.isEnabled ? props.text : "Select Deck"}
+    <button 
+      className={styles.button + " " + (props.isEnabled ? styles.enabled : styles.disabled)}
+      onClick={props.onClick}>
+        {props.isEnabled ? props.text : "Select Deck"}
     </button>
   )
 }
