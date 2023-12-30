@@ -4,14 +4,26 @@ import styles from './components.module.css';
 import React, { useState } from 'react';
 
 export function Deck(props) {
+  const [isSelected, setSelected] = useState(false);
 
-  let isSelected = props.isSelected;
-  let setIsSelected = props.setIsSelected;
+  const selectDeck = () => {
+    const id = props.id;
+    
+    if (isSelected) {
+      setSelected(false);
+      props.deleteDeck(id)
+    } else {
+      setSelected(true);
+      props.addDeck(id)
+    }
+  }
+
+  
 
   return (
     <div 
       className={styles.deck + " " + (isSelected ? styles.selected : "")} 
-      onClick={() => setIsSelected(!isSelected)}>
+      onClick={() => selectDeck()}>
       <div>{isSelected ? "􀁣" : "􀁢"}</div>
       <div>{props.text}</div>
       <div className={styles.cardcount}>{props.cardcount}</div>

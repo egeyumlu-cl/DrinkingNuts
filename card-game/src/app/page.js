@@ -7,18 +7,35 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 export default function Home() {
+  const [selectedDeck, setSelectedDeck] = useState([]);
+
+  const addDeck = (deckId) => {
+    // Check if the deckId is already in the selectedDeck array
+    if (!selectedDeck.includes(deckId)) {
+      // If not, add it to the array
+      setSelectedDeck([...selectedDeck, deckId]);
+    }
+
+  };
+
+  const deleteDeck = (deckId) => {
+    // Filter out the deckId from the selectedDeck array
+    const updatedSelectedDeck = selectedDeck.filter((id) => id !== deckId);
+    setSelectedDeck(updatedSelectedDeck);
+    
+  };
+
   let decks = [
     {id: 0, text: "Original Deck", cardcount: 52}, {id: 1, text: "Deck 2", cardcount: 32}, {id: 2, text: "Deck 3", cardcount: 42},
   ]
   // let decks = axios.get('/api/deck/all').then(res => res.data); 
   // Add select state to each deck,
   decks = decks.map((deck, index) => {
-    let [isSelected, setIsSelected] = useState(index === 0);
-    return {...deck, isSelected, setIsSelected}
+    return {...deck, addDeck, deleteDeck}
   })
 
   // Create a state for enabling the button, if at least one deck is selected 
-  let isEnabled = decks.reduce((acc, deck) => acc || deck.isSelected, false);
+  let isEnabled = selectedDeck.length > 0;
 
   return (
     <main className={styles.frame}>
@@ -40,7 +57,7 @@ export function List(props) {
     <div className={styles.list}>
       {props.label}
       {props.items.map(({ id, ...deck }) => (
-        <Deck key={id} {...deck} />
+        <Deck key={id} id={id} {...deck} />
       ))}
     </div>
   );
