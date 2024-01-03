@@ -2,7 +2,7 @@ import './globals.css'
 
 
 export const metadata = {
-  title: 'Highway-To-Hell',
+  title: 'Highway To Hell',
   description: 'Quick Drinking Game to Get Everyone Ready',
 }
 

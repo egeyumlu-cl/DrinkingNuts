@@ -3,11 +3,29 @@
 import Image from 'next/image'
 import styles from './styles.module.css'
 import { Button, Deck } from './components/components.js'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 export default function Home() {
   const [selectedDeck, setSelectedDeck] = useState([]);
+  const [deckData, setDecks] = useState([])
+  const [loading, setLoaded] = useState(false);
+
+  useEffect(() => {
+    // Fetch data from /api/deck on component mount
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('/api/deck/all');
+        setDecks(response.data);
+        setLoaded(true);
+        console.log('Fetched Deck Data')
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []); 
 
   const addDeck = (deckId) => {
     // Check if the deckId is already in the selectedDeck array
@@ -15,7 +33,6 @@ export default function Home() {
       // If not, add it to the array
       setSelectedDeck([...selectedDeck, deckId]);
     }
-    console.log('ege')
   };
 
   const deleteDeck = (deckId) => {
@@ -25,20 +42,17 @@ export default function Home() {
     
   };
 
-  let decks = [
-    {id: 0, text: "Original Deck", cardcount: 52}, {id: 1, text: "Deck 2", cardcount: 32}, {id: 2, text: "Deck 3", cardcount: 42},
-  ]
   // let decks = axios.get('/api/deck/all').then(res => res.data); 
   // Add select state to each deck,
-  decks = decks.map((deck, index) => {
+  const decks = deckData.map((deck, index) => {
     return {...deck, addDeck, deleteDeck}
-  })
+  });
 
   // Create a state for enabling the button, if at least one deck is selected 
   let isEnabled = selectedDeck.length > 0;
 
   return (
-    <main className={styles.frame}>
+    loading && (<main className={styles.frame}>
       <div className={styles.container}>
         <h1 className={styles.title}>Highway <br/>to <span className={styles['title-red']}>Hell</span></h1>
         <Button text="Start Game" isEnabled={isEnabled} />
@@ -47,7 +61,7 @@ export default function Home() {
         label={<p className={styles.label}>Choose Decks</p>} 
         items={decks}
       />
-    </main>
+    </main> )
   );
 }
 

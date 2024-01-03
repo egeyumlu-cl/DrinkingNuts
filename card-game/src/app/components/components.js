@@ -25,8 +25,8 @@ export function Deck(props) {
       className={styles.deck + " " + (isSelected ? styles.selected : "")} 
       onClick={() => selectDeck()}>
       <div>{isSelected ? "􀁣" : "􀁢"}</div>
-      <div>{props.text}</div>
-      <div className={styles.cardcount}>{props.cardcount}</div>
+      <div>{props.title}</div>
+      <div className={styles.cardcount}>{props._count.cards}</div>
     </div>
   );
 }

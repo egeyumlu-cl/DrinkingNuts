@@ -7,7 +7,15 @@ export default async function handle(req, res) {
   switch (method) {
     case "GET":
         try {
-            const deck = await prisma.deck.findMany();
+            const deck = await prisma.deck.findMany({
+                select: {
+                    id: true,
+                    title: true,
+                    _count: {
+                      select: { cards: true },
+                    },
+                  },
+            });
 
             res.status(200).json(deck);
         } catch (err) {
